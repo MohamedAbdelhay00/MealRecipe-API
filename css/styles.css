@@ -90,6 +90,11 @@ body {
   @media only screen and (min-width: 301px) and (max-width: 768px) {
 
     .sideNav{
+        left: -40%;
         width: 50% !important;
+    }
+
+    .icon{
+        width: 27%;
     }
   }
