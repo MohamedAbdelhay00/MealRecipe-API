@@ -2,21 +2,19 @@ let display = document.querySelector("#display");
 
 let displayMealData = document.querySelector("#displayMealData");
 
-document.getElementById('displayMain').classList.add('d-flex');
+document.getElementById("displayMain").classList.add("d-flex");
 
-    function toggleDiv(divId) {
-      const divs = document.querySelectorAll('.divs > div');
-      
-      // Hide all divs
-      divs.forEach(div => div.classList.remove('d-flex'));
-      
-      // Show the selected div
-      const selectedDiv = document.getElementById(divId);
-      if (selectedDiv) {
-        selectedDiv.classList.remove('d-none');
-        selectedDiv.classList.add('d-flex');
-      }
-    }
+function toggleDiv(divId) {
+  const divs = document.querySelectorAll(".divs > div");
+
+  divs.forEach((div) => div.classList.remove("d-flex"));
+
+  const selectedDiv = document.getElementById(divId);
+  if (selectedDiv) {
+    selectedDiv.classList.remove("d-none");
+    selectedDiv.classList.add("d-flex");
+  }
+}
 
 $(".insp").on("click", function () {
   let width = $(".inner").outerWidth();
@@ -312,60 +310,71 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch((error) => console.error("Error fetching data:", error));
 });
 
-document.querySelector('#categoryView').addEventListener("click", async function () {
-  console.log("categories");
-    document.querySelector('#categoriesData').innerHTML = '';
+document
+  .querySelector("#categoryView")
+  .addEventListener("click", async function () {
+    console.log("categories");
+    document.querySelector("#categoriesData").innerHTML = "";
 
-  try {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      let response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/categories.php`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      response = await response.json();
+      console.log(response.categories);
+      displayCategories(response.categories);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-
-    response = await response.json();
-    console.log(response.categories)
-    displayCategories(response.categories);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-});
-
+  });
 
 function displayCategories(arr) {
   let temp = "";
-  console.log(arr)
+  console.log(arr);
   for (let i = 0; i < arr.length; i++) {
-    temp += `<div onclick="getCategoryMeals('${arr[i].strCategory}')" id='' class="cateCard my-2  col-md-3 col-sm-12 text-center text-light">
+    temp += `<div onclick="getCategoryMeals('${
+      arr[i].strCategory
+    }')" id='' class="cateCard my-2  col-md-3 col-sm-12 text-center text-light">
     <div class="img">
         <img src="${arr[i].strCategoryThumb}" class='rounded-3' alt="">
     </div>
     <div class="cateInfo p-3 ">
         <h2>${arr[i].strCategory}</h2>
-        <p>${arr[i].strCategoryDescription.split(" ").slice(0,20).join(" ")}</p>
+        <p>${arr[i].strCategoryDescription
+          .split(" ")
+          .slice(0, 20)
+          .join(" ")}</p>
     </div>
 </div>`;
   }
-  document.querySelector('#categoriesData').innerHTML = temp
+  document.querySelector("#categoriesData").innerHTML = temp;
 }
 
-document.querySelector('#areaView').addEventListener("click", async function () {
-  console.log("Area");
-    document.querySelector('#areaData').innerHTML = '';
+document
+  .querySelector("#areaView")
+  .addEventListener("click", async function () {
+    console.log("Area");
+    document.querySelector("#areaData").innerHTML = "";
 
-  try {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?a=list`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      let response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/list.php?a=list`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      response = await response.json();
+      console.log(response.meals);
+      displayArea(response.meals);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-
-    response = await response.json();
-    console.log(response.meals)
-    displayArea(response.meals);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-});
-
+  });
 
 function displayArea(arr) {
   let temp = "";
@@ -375,76 +384,137 @@ function displayArea(arr) {
     <h1>${arr[i].strArea}</h1>
 </div>`;
   }
-  document.querySelector('#areaData').innerHTML = temp
+  document.querySelector("#areaData").innerHTML = temp;
 }
 
-document.querySelector('#ingredientsView').addEventListener("click", async function () {
-  console.log("ingredients");
-    document.querySelector('#ingredientsData').innerHTML = '';
+document
+  .querySelector("#ingredientsView")
+  .addEventListener("click", async function () {
+    console.log("ingredients");
+    document.querySelector("#ingredientsData").innerHTML = "";
 
-  try {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/list.php?i=list`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      let response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/list.php?i=list`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      response = await response.json();
+      console.log(response.meals);
+      ingredientsDisplay(response.meals);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-
-    response = await response.json();
-    console.log(response.meals)
-    ingredientsDisplay(response.meals);
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-  }
-});
-
+  });
 
 function ingredientsDisplay(arr) {
   let temp = "";
   for (let i = 0; i < arr.length; i++) {
-    const description = arr[i].strDescription || ''; // Check if strDescription is null or undefined
-    temp += `<div onclick="getIngredientsMeals('${arr[i].strIngredient}')" class="ingredientCard my-2  col-md-3 col-sm-12 text-center text-light">
+    const description = arr[i].strDescription || "";
+    temp += `<div onclick="getIngredientsMeals('${
+      arr[i].strIngredient
+    }')" class="ingredientCard my-2  col-md-3 col-sm-12 text-center text-light">
       <i class="fa-solid fa-drumstick-bite"></i>
       <h1>${arr[i].strIngredient}</h1>
       <p>${description.split(" ").slice(0, 20).join(" ")}</p>
     </div>`;
   }
-  document.querySelector('#ingredientsData').innerHTML = temp;
+  document.querySelector("#ingredientsData").innerHTML = temp;
 }
 
 async function getCategoryMeals(category) {
-  document.querySelector('#categoriesData').innerHTML = ""
+  document.querySelector("#categoriesData").innerHTML = "";
   // $(".inner-loading-screen").fadeIn(300)
 
-  let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-  response = await response.json()
+  let response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+  );
+  response = await response.json();
 
-  displayData(response.meals)
+  displayData(response.meals);
 }
-
-
 
 async function getAreaMeals(area) {
-  document.querySelector('#areaData').innerHTML = ""
-  $(".inner-loading-screen").fadeIn(300)
+  document.querySelector("#areaData").innerHTML = "";
+  $(".inner-loading-screen").fadeIn(300);
 
-  let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
-  response = await response.json()
+  let response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`
+  );
+  response = await response.json();
 
-
-  displayData(response.meals)
-  $(".inner-loading-screen").fadeOut(300)
-
+  displayData(response.meals);
+  $(".inner-loading-screen").fadeOut(300);
 }
 
-
 async function getIngredientsMeals(ingredients) {
-  document.querySelector('#ingredientsData').innerHTML = ""
-  $(".inner-loading-screen").fadeIn(300)
+  document.querySelector("#ingredientsData").innerHTML = "";
+  $(".inner-loading-screen").fadeIn(300);
 
-  let response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`)
-  response = await response.json()
+  let response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredients}`
+  );
+  response = await response.json();
 
+  displayData(response.meals);
+  $(".inner-loading-screen").fadeOut(300);
+}
 
-  displayData(response.meals)
-  $(".inner-loading-screen").fadeOut(300)
+function validateForm() {
+  let fullName = document.getElementById("fullName").value;
+  let email = document.getElementById("email").value;
+  let phone = document.getElementById("phone").value;
+  let age = document.getElementById("age").value;
+  let password = document.getElementById("password").value;
+  let repassword = document.getElementById("repassword").value;
 
+  const nameRegex = /^[a-zA-Z\s]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\d{10}$/;
+  const ageRegex = /^\d+$/;
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+  if (!nameRegex.test(fullName)) {
+    alert("Please enter a valid Full Name");
+    return;
+  }
+
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid Email address");
+    return;
+  }
+
+  if (!phoneRegex.test(phone)) {
+    alert("Please enter a valid Phone number");
+    return;
+  }
+
+  if (!ageRegex.test(age)) {
+    alert("Please enter a valid Age");
+    return;
+  }
+
+  if (!passwordRegex.test(password)) {
+    alert(
+      "Password must contain at least 8 characters, including at least one letter and one number"
+    );
+    return;
+  }
+
+  if (password !== repassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  fullName = "";
+  email = "";
+  phone = "";
+  age = "";
+  password = "";
+  repassword = "";
+  
+  alert("Form submitted successfully!");
+  return false;
 }

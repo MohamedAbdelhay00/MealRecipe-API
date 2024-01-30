@@ -23,7 +23,7 @@
                 <li id="categoryView" onclick="toggleDiv('displayCategories')">Categories</li>
                 <li id="areaView" onclick="toggleDiv('displayArea')">Area</li>
                 <li id="ingredientsView" onclick="toggleDiv('displayIngredients')">Ingredients</li>
-                <li>Contact Us</li>
+                <li onclick="toggleDiv('displayContact')">Contact Us</li>
             </ul>
             <div class="inner-footer">
                 <i class="fa-brands fa-facebook"></i>
@@ -82,9 +82,17 @@
         <div id="ingredientsData" class="row w-100  text-light">
         </div>
     </div>
-    <div class="Contact">
-        <form>
-            
+    <div id="displayContact" class="Contact d-none justify-content-center align-items-center w-100 ">
+        <form id="contactForm" class="d-flex justify-content-center align-items-center row g-5 py-4 w-75 "  onsubmit="return validateForm()">
+            <input type="text" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="Full Name" name="fullName" id="fullName">
+            <input type="email" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="Mail" name="email" id="email">
+            <input type="text" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="Phone No." name="phone" id="phone">
+            <input type="number" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="Age" name="age" id="age">
+            <input type="password" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="Password" name="password" id="password">
+            <input type="password" class="bg-light px-3 py-2 rounded col-md-5 col-sm-12 mx-2 border-0" placeholder="RePassword" name="repassword" id="repassword">
+            <div class="text-center ">
+                <button type="button" class="btn btn-outline-danger" onclick="validateForm()">Submit</button>
+            </div>
         </form>
     </div>
    </div>
