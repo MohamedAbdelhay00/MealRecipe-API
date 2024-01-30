@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/254125208e.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="sideNav d-flex  bg-black z-3 position-fixed top-0 w-25 ">
+        <div class="inner  text-light d-flex flex-column ps-4 justify-content-between ">
+            <ul class="nav-list list-unstyled ">
+                <li id="searchLi" onclick="toggleDiv('displaySearch')">Search</li>
+                <li id="categoryView" onclick="toggleDiv('displayCategories')">Categories</li>
+                <li id="areaView" onclick="toggleDiv('displayArea')">Area</li>
+                <li id="ingredientsView" onclick="toggleDiv('displayIngredients')">Ingredients</li>
+                <li>Contact Us</li>
+            </ul>
+            <div class="inner-footer">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-solid fa-earth-americas my-2"></i>
+                <p>Copyright Â© 2019 All Rights
+                    Reserved.</p>
+            </div>
+        </div>
+        <div class="icon nav">
+            <div class="d-flex flex-column justify-content-between align-items-center w-100 ">
+                <div class="logo w-100">
+                    <img src="./imgs/logo.png" class="w-100 " alt="">
+                </div>
+                <div class="insp">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="footer d-flex flex-column ">
+                    <i class="fa-solid fa-earth-americas my-2"></i>
+                    <i class="fa-solid fa-share my-2"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="divs">
+    <div id="displayMain" class="main container overflow-hidden d-flex p-5">
+        <div id="display" class="row">
+        </div>
+    </div>
+    <div class="meal-details p-5 container d-none text-light">
+        <div id="displayMealData" class="row">
+        </div>
+    </div>
+    <div id="displaySearch" class="bySearch d-none flex-column  justify-content-center p-5">
+        <div class="d-flex justify-content-center ">
+            <input class="bg-transparent text-light pe-5 ps-2 py-2 m-2 rounded" placeholder="Search by name" type="text"
+            name="" onkeyup="searchByName(this.value)" id="searchByName">
+            <input class="bg-transparent text-light pe-5 ps-2 py-2 m-2 rounded" placeholder="Search by first letter" type="text"
+            name="" id="searchByFirstLetter" maxlength="1" onkeyup="searchByLetter(this.value)">
+        </div>
+
+            <div class="searchedData container overflow-hidden d-none   p-5">
+                <div id="searchData" class="row">
+                </div>
+            </div>
+    </div>
+    <div id="displayCategories" class="categories container overflow-hidden d-none justify-content-center p-5">
+        <div id="categoriesData" class="row w-100 text-light">
+        </div>
+    </div>
+    <div id="displayArea" class="area container overflow-hidden d-none justify-content-center p-5">
+        <div id="areaData" class="row w-100  text-light">
+        </div>
+    </div>
+    <div id="displayIngredients" class="ingredients container overflow-hidden d-none justify-content-center p-5">
+        <div id="ingredientsData" class="row w-100  text-light">
+        </div>
+    </div>
+    <div class="Contact"></div>
+   </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
